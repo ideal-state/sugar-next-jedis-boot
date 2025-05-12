@@ -17,10 +17,9 @@
 package team.idealstate.sugar.next.boot.jedis;
 
 import redis.clients.jedis.JedisPool;
-import team.idealstate.sugar.Sugar;
 import team.idealstate.sugar.validate.annotation.NotNull;
 
-public interface NextJedis extends Sugar {
+public interface NextJedis {
 
     @NotNull
     JedisPool getJedisPool();
