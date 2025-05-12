@@ -46,6 +46,7 @@ dependencies {
     api(libs.sugar.next)
 
     api(libs.jedis)
+    compileOnly(libs.sugar.next.mybatis.boot)
 
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
