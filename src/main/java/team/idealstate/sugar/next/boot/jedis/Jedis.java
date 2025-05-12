@@ -22,7 +22,6 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import team.idealstate.sugar.next.context.annotation.component.Component;
 import team.idealstate.sugar.next.context.annotation.feature.Autowired;
-import team.idealstate.sugar.next.context.annotation.feature.Named;
 import team.idealstate.sugar.next.context.lifecycle.Destroyable;
 import team.idealstate.sugar.next.context.lifecycle.Initializable;
 import team.idealstate.sugar.next.function.Lazy;
@@ -30,9 +29,8 @@ import team.idealstate.sugar.string.StringUtils;
 import team.idealstate.sugar.validate.Validation;
 import team.idealstate.sugar.validate.annotation.NotNull;
 
-@Named("NextJedis")
 @Component
-public class Jedis implements NextJedis, Initializable, Destroyable {
+public class Jedis implements JedisProvider, Initializable, Destroyable {
 
     @NotNull
     @Override

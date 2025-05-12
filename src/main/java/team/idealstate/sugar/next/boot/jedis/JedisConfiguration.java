@@ -16,16 +16,12 @@
 
 package team.idealstate.sugar.next.boot.jedis;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import team.idealstate.sugar.next.context.annotation.component.Configuration;
 
 @Configuration(uri = "/database/Jedis.yml", release = "bundled:/database/Jedis.yml")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class JedisConfiguration {
 
     @NonNull
