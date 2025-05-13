@@ -16,6 +16,12 @@
 
 package team.idealstate.sugar.next.boot.jedis.mybatis;
 
+import static team.idealstate.sugar.next.function.Functional.lazy;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import lombok.Data;
 import lombok.NonNull;
 import org.apache.ibatis.cache.Cache;
@@ -27,20 +33,15 @@ import team.idealstate.sugar.next.boot.jedis.JedisProvider;
 import team.idealstate.sugar.next.function.Lazy;
 import team.idealstate.sugar.next.function.closure.Function;
 
-import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
-import static team.idealstate.sugar.next.function.Functional.lazy;
-
 @Data
 final class JedisMyBatisCache implements Cache {
 
     @NonNull
     private final String id;
+
     @NonNull
     private final JedisProvider jedisProvider;
+
     private final Integer expired;
     private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
 
