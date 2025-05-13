@@ -3,7 +3,6 @@ jreleaser = "1.18.0"
 lombok = "1.18.38"
 sugar-next = "0.1.0-SNAPSHOT"
 jedis = "6.0.0"
-sugar-next-mybatis-boot = "0.1.0-SNAPSHOT"
 
 [plugins]
 jreleaser = { id = "org.jreleaser", version.ref = "jreleaser" }
@@ -12,4 +11,3 @@ jreleaser = { id = "org.jreleaser", version.ref = "jreleaser" }
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 sugar-next = { group = "team.idealstate.sugar", name = "sugar-next", version.ref = "sugar-next" }
 jedis = { group = "redis.clients", name = "jedis", version.ref = "jedis" }
-sugar-next-mybatis-boot = { group = "team.idealstate.sugar.boot", name = "sugar-next-mybatis-boot", version.ref = "sugar-next-mybatis-boot" }

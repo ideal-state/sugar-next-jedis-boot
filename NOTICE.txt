@@ -28,9 +28,3 @@
     MIT License
 
 ------------------------------------------------------------------------------
-
-    sugar-next-mybatis-boot
-    (https://github/ideal-state/sugar-next-mybatis-boot)
-    Apache License 2.0
-
-------------------------------------------------------------------------------
