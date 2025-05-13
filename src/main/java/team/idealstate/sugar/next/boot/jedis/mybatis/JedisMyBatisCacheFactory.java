@@ -16,6 +16,7 @@
 
 package team.idealstate.sugar.next.boot.jedis.mybatis;
 
+import java.util.Map;
 import org.apache.ibatis.cache.Cache;
 import team.idealstate.sugar.next.boot.jedis.JedisProvider;
 import team.idealstate.sugar.next.boot.mybatis.spi.CacheFactory;
@@ -24,8 +25,6 @@ import team.idealstate.sugar.next.context.annotation.feature.Autowired;
 import team.idealstate.sugar.next.context.annotation.feature.DependsOn;
 import team.idealstate.sugar.validate.Validation;
 import team.idealstate.sugar.validate.annotation.NotNull;
-
-import java.util.Map;
 
 @Component
 @DependsOn(
