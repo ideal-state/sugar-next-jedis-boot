@@ -13,3 +13,5 @@ password: ''
 ssl: false
 # 最大连接超时时长（毫秒）
 timeout: 2000
+# Jedis 属性
+properties: {}

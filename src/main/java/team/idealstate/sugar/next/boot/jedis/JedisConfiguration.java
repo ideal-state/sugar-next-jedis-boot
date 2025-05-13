@@ -16,6 +16,7 @@
 
 package team.idealstate.sugar.next.boot.jedis;
 
+import java.util.Map;
 import lombok.Data;
 import lombok.NonNull;
 import team.idealstate.sugar.next.context.annotation.component.Configuration;
@@ -44,4 +45,7 @@ public class JedisConfiguration {
 
     @NonNull
     private Boolean ssl;
+
+    @NonNull
+    private Map<String, Object> properties;
 }
