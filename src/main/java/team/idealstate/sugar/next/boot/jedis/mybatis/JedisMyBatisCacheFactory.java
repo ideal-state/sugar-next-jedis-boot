@@ -25,6 +25,8 @@ import team.idealstate.sugar.next.context.annotation.feature.DependsOn;
 import team.idealstate.sugar.validate.Validation;
 import team.idealstate.sugar.validate.annotation.NotNull;
 
+import java.util.Map;
+
 @Component
 @DependsOn(
         properties = {
@@ -36,7 +38,7 @@ import team.idealstate.sugar.validate.annotation.NotNull;
 public class JedisMyBatisCacheFactory implements CacheFactory {
 
     @Override
-    public Cache createCache(@NotNull String id, Integer expired) {
+    public Cache createCache(@NotNull String id, Integer expired, @NotNull Map<String, Object> properties) {
         Validation.notNull(id, "Id must not be null.");
         return new JedisMyBatisCache(id, getJedisProvider(), expired);
     }

@@ -29,12 +29,13 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.JedisException;
 import team.idealstate.sugar.internal.com.fasterxml.jackson.core.JsonFactory;
 import team.idealstate.sugar.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import team.idealstate.sugar.logging.Log;
 import team.idealstate.sugar.next.boot.jedis.JedisProvider;
 import team.idealstate.sugar.next.function.Lazy;
 import team.idealstate.sugar.next.function.closure.Function;
 
 @Data
-final class JedisMyBatisCache implements Cache {
+public class JedisMyBatisCache implements Cache {
 
     @NonNull
     private final String id;
@@ -58,6 +59,7 @@ final class JedisMyBatisCache implements Cache {
 
     @Override
     public int getSize() {
+        Log.debug(() -> String.format("Getting cache size of [%s]...", getId()));
         return (Integer) execute(jedis -> {
             Map<byte[], byte[]> result = jedis.hgetAll(getId().getBytes());
             return result.size();
@@ -66,6 +68,7 @@ final class JedisMyBatisCache implements Cache {
 
     @Override
     public void putObject(final Object key, final Object value) {
+        Log.debug(() -> String.format("Putting cache [%s] with key [%s]...", getId(), key));
         execute(jedis -> {
             final byte[] idBytes = getId().getBytes();
             jedis.hset(idBytes, key.toString().getBytes(), serialize(value));
@@ -78,17 +81,20 @@ final class JedisMyBatisCache implements Cache {
 
     @Override
     public Object getObject(final Object key) {
+        Log.debug(() -> String.format("Getting cache [%s] with key [%s]...", getId(), key));
         return execute(jedis ->
                 deserialize(jedis.hget(getId().getBytes(), key.toString().getBytes())));
     }
 
     @Override
     public Object removeObject(final Object key) {
+        Log.debug(() -> String.format("Removing cache [%s] with key [%s]...", getId(), key));
         return execute(jedis -> jedis.hdel(getId(), key.toString()));
     }
 
     @Override
     public void clear() {
+        Log.debug(() -> String.format("Clearing cache [%s]...", getId()));
         execute(jedis -> {
             jedis.del(getId());
             return null;
@@ -97,11 +103,13 @@ final class JedisMyBatisCache implements Cache {
 
     private final Lazy<ObjectMapper> json = lazy(() -> new ObjectMapper(new JsonFactory()).findAndRegisterModules());
 
-    private byte[] serialize(Object value) throws IOException {
+    protected byte[] serialize(Object value) throws IOException {
+        Log.debug(() -> String.format("Serializing cache [%s] with [%s]...", getId(), value));
         return json.get().writeValueAsBytes(value);
     }
 
-    private Object deserialize(byte[] value) throws IOException {
+    protected Object deserialize(byte[] value) throws IOException {
+        Log.debug(() -> String.format("Deserializing cache [%s] with [%s]...", getId(), value));
         return json.get().readValue(value, Object.class);
     }
 }
