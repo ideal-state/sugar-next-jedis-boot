@@ -33,6 +33,7 @@ import team.idealstate.sugar.logging.Log;
 import team.idealstate.sugar.next.boot.jedis.JedisProvider;
 import team.idealstate.sugar.next.function.Lazy;
 import team.idealstate.sugar.next.function.closure.Function;
+import team.idealstate.sugar.validate.annotation.NotNull;
 
 @Data
 public class JedisMyBatisCache implements Cache {
@@ -82,8 +83,13 @@ public class JedisMyBatisCache implements Cache {
     @Override
     public Object getObject(final Object key) {
         Log.debug(() -> String.format("Getting cache [%s] with key [%s]...", getId(), key));
-        return execute(jedis ->
-                deserialize(jedis.hget(getId().getBytes(), key.toString().getBytes())));
+        return execute(jedis -> {
+            byte[] value = jedis.hget(getId().getBytes(), key.toString().getBytes());
+            if (value == null) {
+                return null;
+            }
+            return deserialize(value);
+        });
     }
 
     @Override
@@ -108,7 +114,7 @@ public class JedisMyBatisCache implements Cache {
         return json.get().writeValueAsBytes(value);
     }
 
-    protected Object deserialize(byte[] value) throws IOException {
+    protected Object deserialize(@NotNull byte[] value) throws IOException {
         Log.debug(() -> String.format("Deserializing cache [%s] with [%s]...", getId(), value));
         return json.get().readValue(value, Object.class);
     }
